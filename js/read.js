@@ -25,5 +25,23 @@ database.collection("todos").get().then(snapshot => {
 
     todoItems.forEach(todoItem => {
         todoItem.querySelector("input").checked = todoItem.getAttribute("data-checked") === "true" ? true : false
+
+        if(todoItem.querySelector("input").checked === true){
+            todoItem.classList.add("completed")
+        }else{
+            todoItem.classList.remove("completed")
+        }
+        
+        todoItem.addEventListener("change", () => {
+            database.collection("todos").doc(todoItem.id).update({
+                checked: todoItem.querySelector("input").checked
+            }).then(() => {
+                if(todoItem.querySelector("input").checked === true){
+                    todoItem.classList.add("completed")
+                }else{
+                    todoItem.classList.remove("completed")
+                }
+            }).catch(error => console.error(error))
+        })
     })
 }).catch(error => console.error(error))
