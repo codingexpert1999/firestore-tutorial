@@ -25,6 +25,19 @@
 
         <ul class="mx-auto" id="todos">
         </ul>
+
+        <form id="addTodoForm" class="hidden">
+            <input type="text" class="form-control" placeholder="Add your todo here..." id="addTodoInput">
+
+            <div class="button-group">
+                <button class="btn btn-primary" type="submit" id="add">Add</button>
+                <button class="btn btn-secondary" type="button" id="cancel">Cancel</button>
+            </div>
+        </form>
+
+        <div class="add-todo" id="addTodo">
+            <i class="fas fa-plus"></i>
+        </div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script>
@@ -32,5 +45,6 @@
 
     <script src="js/config/firestore.js"></script>
     <script src="js/read.js"></script>
+    <script src="js/add.js"></script>
 </body>
 </html>

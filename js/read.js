@@ -26,4 +26,4 @@ database.collection("todos").get().then(snapshot => {
     todoItems.forEach(todoItem => {
         todoItem.querySelector("input").checked = todoItem.getAttribute("data-checked") === "true" ? true : false
     })
-})
+}).catch(error => console.error(error))
