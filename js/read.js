@@ -1,5 +1,6 @@
 const todos = document.getElementById("todos");
 let todoItems = [];
+let deleteButtons = []
 
 todos.innerHTML = "";
 
@@ -22,6 +23,7 @@ database.collection("todos").get().then(snapshot => {
     })
 }).then(() => {
     todoItems = todos.querySelectorAll(".todo-item");
+    deleteButtons = document.querySelectorAll(".fa-trash");
 
     todoItems.forEach(todoItem => {
         todoItem.querySelector("input").checked = todoItem.getAttribute("data-checked") === "true" ? true : false
@@ -42,6 +44,16 @@ database.collection("todos").get().then(snapshot => {
                     todoItem.classList.remove("completed")
                 }
             }).catch(error => console.error(error))
+        })
+    })
+
+    deleteButtons.forEach(deleteButton => {
+        deleteButton.addEventListener("click", () => {
+            let todoId = deleteButton.parentNode.parentNode.id;
+
+            database.collection("todos").doc(todoId).delete()
+            .then(() => alert(`Todo with ID = ${todoId} deleted successfully to database!`))
+            .catch(error => console.error(error))
         })
     })
 }).catch(error => console.error(error))

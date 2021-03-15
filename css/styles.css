@@ -75,3 +75,8 @@ li i:hover{
 .button-group{
     margin-top: 20px;
 }
+
+i.fa-trash, i.fa-trash::after, i.fa-trash::before{
+    display: inline-block;
+    text-decoration: none !important;
+}
