@@ -9,7 +9,7 @@ form.addEventListener("submit", e => {
 
     let todo = todoInput.value;
 
-    database.collection("todos").add({todo, checked: false})
+    database.collection("todos").add({todo, checked: false, created_at: firebase.firestore.Timestamp.now()})
     .then((docRef) => {
         alert(`New todo with ID = ${docRef.id} created successfully!`)
     })

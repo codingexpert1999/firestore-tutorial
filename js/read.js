@@ -4,8 +4,16 @@ let deleteButtons = [];
 
 todos.innerHTML = "";
 
-database.collection("todos").get().then(snapshot => {
-    snapshot.forEach(doc => {
+const setTodos = (todosSnapshot) => {
+    todoItems = [];
+    deleteButtons = [];
+
+    todos.innerHTML = "";
+
+    todoItems = todos.querySelectorAll(".todo-item");
+    deleteButtons = todos.querySelectorAll(".fa-trash");
+
+    todosSnapshot.forEach(doc => {
         let todoDoc = doc.data();
 
         todos.innerHTML += `
@@ -20,41 +28,45 @@ database.collection("todos").get().then(snapshot => {
                 </div>
             </li>
         `;
-    })
-}).then(() => {
-    todoItems = todos.querySelectorAll(".todo-item");
-    deleteButtons = todos.querySelectorAll(".fa-trash");
 
-    todoItems.forEach(todoItem => {
-        todoItem.querySelector("input").checked = todoItem.getAttribute("data-checked") === "true" ? true : false;
-
-        if(todoItem.querySelector("input").checked === true){
-            todoItem.classList.add("completed")
-        }
-
-        todoItem.querySelector("input").addEventListener("change", () => {
-            database.collection("todos").doc(todoItem.id).update({
-                checked: todoItem.querySelector("input").checked
-            }).then(() => {
-
-                if(todoItem.querySelector("input").checked === true){
-                    todoItem.classList.add("completed")
-                }else{
-                    todoItem.classList.remove("completed")
-                }
-
-            }).catch(error => console.error(error))
+        todoItems = todos.querySelectorAll(".todo-item");
+        deleteButtons = todos.querySelectorAll(".fa-trash");
+    
+        todoItems.forEach(todoItem => {
+            todoItem.querySelector("input").checked = todoItem.getAttribute("data-checked") === "true" ? true : false;
+    
+            if(todoItem.querySelector("input").checked === true){
+                todoItem.classList.add("completed")
+            }
+    
+            todoItem.querySelector("input").addEventListener("change", () => {
+                database.collection("todos").doc(todoItem.id).update({
+                    checked: todoItem.querySelector("input").checked
+                }).then(() => {
+    
+                    if(todoItem.querySelector("input").checked === true){
+                        todoItem.classList.add("completed")
+                    }else{
+                        todoItem.classList.remove("completed")
+                    }
+    
+                }).catch(error => console.error(error))
+            })
+        })
+    
+        deleteButtons.forEach(deleteButton => {
+            deleteButton.addEventListener("click", () => {
+                let todoId = deleteButton.parentNode.parentNode.id;
+    
+                database.collection("todos").doc(todoId).delete()
+                .then(() => {
+                    alert(`Todo with ID = ${todoId} deleted successfully!`);
+                }).catch(error => console.error(error))
+            })
         })
     })
+}
 
-    deleteButtons.forEach(deleteButton => {
-        deleteButton.addEventListener("click", () => {
-            let todoId = deleteButton.parentNode.parentNode.id;
-
-            database.collection("todos").doc(todoId).delete()
-            .then(() => {
-                alert(`Todo with ID = ${todoId} deleted successfully!`);
-            }).catch(error => console.error(error))
-        })
-    })
-}).catch(error => console.log(error))
+database.collection("todos").orderBy("created_at", "desc").get().then(snapshot => {
+    setTodos(snapshot)
+})
