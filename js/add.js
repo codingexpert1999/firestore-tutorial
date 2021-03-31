@@ -8,30 +8,28 @@ form.addEventListener("submit", e => {
     e.preventDefault();
 
     let todo = todoInput.value;
-    
-    database.collection("todos").add({
-        todo,
-        checked: false
-    }).then((docRef) => {
-        alert(`Document with ID = ${docRef.id} added successfully to database!`)
-    }).catch(error => console.error(error));
+
+    database.collection("todos").add({todo, checked: false})
+    .then((docRef) => {
+        alert(`New todo with ID = ${docRef.id} created successfully!`)
+    })
+    .catch(error => console.error(error))
 
     todoInput.value = "";
 })
 
 openFormButton.addEventListener("click", () => {
-    openFormButton.classList.add("hidden")
     form.classList.remove("hidden");
-})
-
-addButton.addEventListener("click", () => {
-    form.classList.add("hidden");
-    openFormButton.classList.remove("hidden");
-    
+    openFormButton.classList.add("hidden");
 })
 
 cancelButton.addEventListener("click", () => {
     todoInput.value = "";
     form.classList.add("hidden");
-    openFormButton.classList.remove("hidden")
+    openFormButton.classList.remove("hidden");
+})
+
+addButton.addEventListener("click", () => {
+    form.classList.add("hidden");
+    openFormButton.classList.remove("hidden");
 })

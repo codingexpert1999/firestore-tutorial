@@ -1,6 +1,6 @@
 const todos = document.getElementById("todos");
 let todoItems = [];
-let deleteButtons = []
+let deleteButtons = [];
 
 todos.innerHTML = "";
 
@@ -9,7 +9,7 @@ database.collection("todos").get().then(snapshot => {
         let todoDoc = doc.data();
 
         todos.innerHTML += `
-            <li class="card px-3 py-2 todo-item" data-checked=${todoDoc.checked} id=${doc.id}>
+            <li class="card px-3 py-2 todo-item" id=${doc.id} data-checked=${todoDoc.checked}>
                 <div class="d-flex justify-content-center align-items-center">
                     <span>${todoDoc.todo}</span>
                     <input class="form-check-input" type="checkbox">
@@ -23,26 +23,26 @@ database.collection("todos").get().then(snapshot => {
     })
 }).then(() => {
     todoItems = todos.querySelectorAll(".todo-item");
-    deleteButtons = document.querySelectorAll(".fa-trash");
+    deleteButtons = todos.querySelectorAll(".fa-trash");
 
     todoItems.forEach(todoItem => {
-        todoItem.querySelector("input").checked = todoItem.getAttribute("data-checked") === "true" ? true : false
+        todoItem.querySelector("input").checked = todoItem.getAttribute("data-checked") === "true" ? true : false;
 
         if(todoItem.querySelector("input").checked === true){
             todoItem.classList.add("completed")
-        }else{
-            todoItem.classList.remove("completed")
         }
-        
-        todoItem.addEventListener("change", () => {
+
+        todoItem.querySelector("input").addEventListener("change", () => {
             database.collection("todos").doc(todoItem.id).update({
                 checked: todoItem.querySelector("input").checked
             }).then(() => {
+
                 if(todoItem.querySelector("input").checked === true){
                     todoItem.classList.add("completed")
                 }else{
                     todoItem.classList.remove("completed")
                 }
+
             }).catch(error => console.error(error))
         })
     })
@@ -52,8 +52,9 @@ database.collection("todos").get().then(snapshot => {
             let todoId = deleteButton.parentNode.parentNode.id;
 
             database.collection("todos").doc(todoId).delete()
-            .then(() => alert(`Todo with ID = ${todoId} deleted successfully to database!`))
-            .catch(error => console.error(error))
+            .then(() => {
+                alert(`Todo with ID = ${todoId} deleted successfully!`);
+            }).catch(error => console.error(error))
         })
     })
-}).catch(error => console.error(error))
+}).catch(error => console.log(error))

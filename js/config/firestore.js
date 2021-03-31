@@ -4,12 +4,12 @@ const firebaseConfig = {
     projectId: "tutorial-c89d7",
     storageBucket: "tutorial-c89d7.appspot.com",
     messagingSenderId: "597292058978",
-    appId: "1:597292058978:web:78e4a627d9c3fe0dc3c43b",
-    measurementId: "G-LQLCTWHL66"
+    appId: "1:597292058978:web:e6d22f9249383debc3c43b",
+    measurementId: "G-S4SSMCNR7C"
 };
 
 firebase.initializeApp(firebaseConfig);
 
 const database = firebase.firestore();
 
-database.settings({timestampsInSNapshots: true})
+database.settings({timestampsInSnapshot: true})

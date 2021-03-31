@@ -40,11 +40,31 @@
         </div>
     </div>
 
+    <div class="radio-group">
+        <h4>Todos to fetch</h4>
+
+        <div class="form-check">
+            <input class="form-check-input" type="radio" id="all-todos" checked>
+            <label class="form-check-label" for="flexRadioDefault1">All</label>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="radio" id="checked-todos">
+            <label class="form-check-label" for="flexRadioDefault2">Checked</label>
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="radio" id="unchecked-todos" >
+            <label class="form-check-label" for="flexRadioDefault2">Unchecked</label>
+        </div>
+    </div>
+
     <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-firestore.js"></script>
 
     <script src="js/config/firestore.js"></script>
     <script src="js/read.js"></script>
     <script src="js/add.js"></script>
+    <script src="js/query.js"></script>
 </body>
 </html>

@@ -9,6 +9,7 @@ h1{
 }
 
 ul{
+    width: 70%;
     padding-left: 0 !important;
 }
 
@@ -40,6 +41,11 @@ li i:hover{
 
 .completed{
     text-decoration: line-through !important;
+}
+
+form{
+    width: 70%;
+    margin: 0 auto;
 }
 
 .add-todo{
@@ -79,4 +85,10 @@ li i:hover{
 i.fa-trash, i.fa-trash::after, i.fa-trash::before{
     display: inline-block;
     text-decoration: none !important;
+}
+
+.radio-group{
+    position: absolute;
+    top: 150px;
+    left: 50px;
 }
