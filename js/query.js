@@ -7,9 +7,9 @@ allTodos.addEventListener("click", () => {
     checkedTodos.checked = false;
     uncheckedTodos.checked = false;
 
-    database.collection("todos").orderBy("created_at", "desc").get().then(snapshot => {
-        setTodos(snapshot)
-    })
+    // database.collection("todos").orderBy("created_at", "desc").get().then(snapshot => {
+    //     setTodos(snapshot)
+    // })
 })
 
 checkedTodos.addEventListener("click", () => {
@@ -17,9 +17,9 @@ checkedTodos.addEventListener("click", () => {
     checkedTodos.checked = true;
     uncheckedTodos.checked = false;
 
-    database.collection("todos").where("checked", "==", true).orderBy("created_at", "desc").get().then(snapshot => {
-        setTodos(snapshot)
-    })
+    // database.collection("todos").where("checked", "==", true).orderBy("created_at", "desc").get().then(snapshot => {
+    //     setTodos(snapshot)
+    // })
 })
 
 uncheckedTodos.addEventListener("click", () => {
@@ -27,7 +27,7 @@ uncheckedTodos.addEventListener("click", () => {
     checkedTodos.checked = false;
     uncheckedTodos.checked = true;
 
-    database.collection("todos").where("checked", "==", false).orderBy("created_at", "desc").get().then(snapshot => {
-        setTodos(snapshot)
-    })
+    // database.collection("todos").where("checked", "==", false).orderBy("created_at", "desc").get().then(snapshot => {
+    //     setTodos(snapshot)
+    // })
 })

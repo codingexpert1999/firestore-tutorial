@@ -67,6 +67,10 @@ const setTodos = (todosSnapshot) => {
     })
 }
 
-database.collection("todos").orderBy("created_at", "desc").get().then(snapshot => {
+// database.collection("todos").orderBy("created_at", "desc").get().then(snapshot => {
+//     setTodos(snapshot)
+// })
+
+database.collection("todos").orderBy("created_at", "desc").onSnapshot(snapshot => {
     setTodos(snapshot)
 })
